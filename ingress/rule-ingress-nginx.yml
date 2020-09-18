@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: s-ingress
+  annotations:
+    ## Untuk menaikan batas upload file
+    nginx.org/client-max-body-size: "10m"
+    ## Memaksa jalan di https
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  rules:
+  - host: mezi.mezi.space
+    http:
+      paths:
+      - backend:
+          serviceName: landing-page
+          servicePort: 80
+  - host: pesbuk.mezi.space
+    http:
+      paths:
+      - backend:
+          serviceName: php-pesbuk
+          servicePort: 80
+  - host: blog.mezi.space
+    http:
+      paths:
+      - backend:
+          serviceName: wordpress
+          servicePort: 80
