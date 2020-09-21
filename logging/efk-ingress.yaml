@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: efk-ingress
+  namespace: kube-logging
+  annotations:
+#   nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.org/client-max-body-size: "10m"	
+spec:
+  rules:
+  - host: efk.isrudisme.xyz
+    http:
+      paths:
+      #- path: /
+      - backend:
+          serviceName: kibana
+          servicePort: 5601
